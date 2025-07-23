@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management System - LMS Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      /* New styles for enhanced welcome section */
+      .welcome-header {
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        margin-bottom: 40px;
+      }
+
+      .welcome-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .welcome-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.9;
+        margin-bottom: 30px;
+      }
+
+      /* Center login buttons section */
+      .login-section {
+        text-align: center;
+        padding: 60px 20px;
+        background: #f8f9fa;
+        margin: 40px 0;
+      }
+
+      .login-title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 40px;
+      }
+
+      .login-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin: 40px 0;
+      }
+
+      .login-button {
+        padding: 20px 40px;
+        border-radius: 50px;
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        min-width: 200px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .student-login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .admin-login {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+      }
+
+      .register-button {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+      }
+
+      .login-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+      }
+
+      /* Navigation Flow Section */
+      .navigation-flow {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        flex-wrap: wrap;
+        margin: 40px 0;
+      }
+
+      .flow-card {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        min-width: 300px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .flow-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .flow-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+
+      .flow-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .flow-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .flow-step {
+        padding: 15px 25px;
+        background: #f8f9fa;
+        border-radius: 25px;
+        color: #495057;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .flow-step:hover {
+        background: #667eea;
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .flow-arrow {
+        font-size: 1.5rem;
+        color: #667eea;
+        margin: 10px 0;
+      }
+
+      /* Dataset Integration Styles */
+      .dataset-section {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 60px 20px;
+        margin: 40px 0;
+        text-align: center;
+      }
+
+      .dataset-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      .dataset-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin: 30px 0;
+      }
+
+      .dataset-stat {
+        text-align: center;
+      }
+
+      .dataset-stat h4 {
+        font-size: 2rem;
+        margin-bottom: 5px;
+      }
+
+      .dataset-stat p {
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .welcome-title {
+          font-size: 2.5rem;
+        }
+
+        .login-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .login-button {
+          width: 80%;
+          max-width: 300px;
+        }
+
+        .navigation-flow {
+          gap: 30px;
+        }
+
+        .flow-card {
+          min-width: 280px;
+          padding: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="nav-container">
+          <h1 class="nav-logo">LibraryMS</h1>
+          <ul class="nav-menu">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Welcome Section -->
+      <section class="welcome-header">
+        <h1 class="welcome-title">Welcome to LMS Website</h1>
+        <p class="welcome-subtitle">
+          Library Management System - Your Gateway to Knowledge
+        </p>
+      </section>
+
+      <!-- Center Login Buttons Section -->
+      <section class="login-section">
+        <h2 class="login-title">Access Your Account</h2>
+        <div class="login-buttons">
+          <a href="/student.html" class="login-button student-login">
+            👨‍🎓 Student Login
+          </a>
+          <a href="/admin.html" class="login-button admin-login">
+            👨‍💼 Admin Login
+          </a>
+          <a href="/signup.html" class="login-button register-button">
+            📝 Register / Sign Up
+          </a>
+        </div>
+      </section>
+
+      <!-- Dataset Integration Section -->
+      <section class="dataset-section">
+        <h2 class="dataset-title">Connected to Rich Book Datasets</h2>
+        <div class="dataset-stats">
+          <div class="dataset-stat">
+            <h4>10M+</h4>
+            <p>Books Available</p>
+          </div>
+          <div class="dataset-stat">
+            <h4>50+</h4>
+            <p>Genres Covered</p>
+          </div>
+          <div class="dataset-stat">
+            <h4>1M+</h4>
+            <p>User Reviews</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navigation Flow Section -->
+      <section class="navigation-flow">
+        <!-- Student Flow -->
+        <div class="flow-card">
+          <div class="flow-icon">👨‍🎓</div>
+          <h2 class="flow-title">Student Journey</h2>
+          <div class="flow-steps">
+            <a href="/student.html" class="flow-step">Student Login Page</a>
+            <div class="flow-arrow">↓</div>
+            <a href="/student.html" class="flow-step">Student Dashboard Page</a>
+          </div>
+        </div>
+
+        <!-- Admin Flow -->
+        <div class="flow-card">
+          <div class="flow-icon">👨‍💼</div>
+          <h2 class="flow-title">Admin Journey</h2>
+          <div class="flow-steps">
+            <a href="/admin.html" class="flow-step">Admin Login Page</a>
+            <div class="flow-arrow">↓</div>
+            <a href="/admin.html" class="flow-step">Admin Dashboard Page</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Enhanced Stats Section -->
+      <section id="stats" class="stats">
+        <div class="container">
+          <h2>Library & Dataset Statistics</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3 id="total-books">0</h3>
+              <p>Total Books in Library</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="total-students">0</h3>
+              <p>Active Students</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="books-issued">0</h3>
+              <p>Books Currently Issued</p>
+            </div>
+            <div class="stat-card">
+              <h3 id="available-books">0</h3>
+              <p>Available Books</p>
+            </div>
+            <div class="stat-card">
+              <h3>10M+</h3>
+              <p>Dataset Books</p>
+            </div>
+            <div class="stat-card">
+              <h3>50+</h3>
+              <p>Genres in Dataset</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2024 Library Management System with Dataset Integration. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register / Sign Up - Library Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Enhanced styling for signup/register page */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        min-height: 100vh;
+      }
+
+      .welcome-header {
+        text-align: center;
+        padding: 40px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        margin-bottom: 30px;
+      }
+
+      .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .welcome-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .navigation-path {
+        text-align: center;
+        margin: 30px 0;
+        padding: 20px;
+      }
+
+      .path-container {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px 40px;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .path-step {
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .path-arrow {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.5rem;
+      }
+
+      .signup-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 40px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .signup-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+        font-weight: 600;
+      }
+
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #4facfe;
+      }
+
+      .role-selection {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .role-option {
+        flex: 1;
+        padding: 15px;
+        text-align: center;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .role-option:hover {
+        border-color: #4facfe;
+        background: rgba(79, 172, 254, 0.1);
+      }
+
+      .role-option.selected {
+        border-color: #4facfe;
+        background: rgba(79, 172, 254, 0.2);
+      }
+
+      .signup-button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .signup-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .login-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .login-link a {
+        color: #4facfe;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .welcome-title {
+          font-size: 2rem;
+        }
+
+        .path-container {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .signup-container {
+          margin: 20px;
+          padding: 30px;
+        }
+
+        .role-selection {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Welcome Header -->
+    <header class="welcome-header">
+      <h1 class="welcome-title">
+        Welcome to Library Management System Website
+      </h1>
+      <p class="welcome-subtitle">Join our community of readers and learners</p>
+    </header>
+
+    <!-- Navigation Path -->
+    <div class="navigation-path">
+      <div class="path-container">
+        <span class="path-step">Register or Sign Up</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">Register or Sign Up Page</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">Register or Sign Up Dashboard Page</span>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="signup-container">
+      <h2 class="signup-title">Create Your Account</h2>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="role">I am registering as:</label>
+          <div class="role-selection">
+            <div class="role-option" data-role="student">
+              <strong>👨‍🎓 Student</strong>
+              <p>Borrow books and manage your reading</p>
+            </div>
+            <div class="role-option" data-role="admin">
+              <strong>👨‍💼 Admin</strong>
+              <p>Manage library books and users</p>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="signup-button">Create Account</button>
+      </form>
+
+      <div class="login-link">
+        <p>
+          Already have an account? <a href="student.html">Student Login</a> or
+          <a href="admin.html">Admin Login</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      // Role selection functionality
+      const roleOptions = document.querySelectorAll(".role-option");
+      let selectedRole = "student";
+
+      roleOptions.forEach((option) => {
+        option.addEventListener("click", function () {
+          roleOptions.forEach((opt) => opt.classList.remove("selected"));
+          this.classList.add("selected");
+          selectedRole = this.dataset.role;
+        });
+      });
+
+      // Form submission
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const fullname = document.getElementById("fullname").value;
+          const email = document.getElementById("email").value;
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          try {
+            const response = await fetch("/api/auth/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                fullname,
+                email,
+                username,
+                password,
+                role: selectedRole,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert("Registration successful! Please login.");
+              if (selectedRole === "student") {
+                window.location.href = "student.html";
+              } else {
+                window.location.href = "admin.html";
+              }
+            } else {
+              alert(data.error || "Registration failed");
+            }
+          } catch (error) {
+            alert("Error: " + error.message);
+          }
+        });
+    </script>
+  </body>
+</html>

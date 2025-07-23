@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Login - Library Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Enhanced styling for student login page */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .welcome-header {
+        text-align: center;
+        padding: 40px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        margin-bottom: 30px;
+      }
+
+      .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .welcome-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .navigation-path {
+        text-align: center;
+        margin: 30px 0;
+        padding: 20px;
+      }
+
+      .path-container {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px 40px;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .path-step {
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .path-arrow {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.5rem;
+      }
+
+      .login-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 40px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+        font-weight: 600;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .login-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .register-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .register-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .register-link a:hover {
+        text-decoration: underline;
+      }
+
+      .error-message {
+        color: #e74c3c;
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: 600;
+      }
+
+      @media (max-width: 768px) {
+        .welcome-title {
+          font-size: 2rem;
+        }
+
+        .path-container {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .login-container {
+          margin: 20px;
+          padding: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Welcome Header -->
+    <header class="welcome-header">
+      <h1 class="welcome-title">
+        Welcome to Library Management System Website
+      </h1>
+      <p class="welcome-subtitle">Your Gateway to Knowledge and Learning</p>
+    </header>
+
+    <!-- Navigation Path -->
+    <div class="navigation-path">
+      <div class="path-container">
+        <span class="path-step">Student</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">Student Login Page</span>
+        <span class="path-arrow">→</span>
+        <span class="path-step">Student Dashboard Page</span>
+      </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-container">
+      <h2 class="login-title">Student Login</h2>
+      <div id="errorMessage" class="error-message" style="display: none"></div>
+      <form id="studentLoginForm">
+        <div class="form-group">
+          <label for="studentUsername">Username</label>
+          <input type="text" id="studentUsername" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="studentPassword">Password</label>
+          <input
+            type="password"
+            id="studentPassword"
+            name="password"
+            required
+          />
+        </div>
+        <button type="submit" class="login-button">Login as Student</button>
+      </form>
+      <div class="register-link">
+        <p>Don't have an account? <a href="signup.html">Register here</a></p>
+      </div>
+    </div>
+
+    <script>
+      // Check if user is already logged in
+      window.addEventListener("DOMContentLoaded", async function () {
+        try {
+          const response = await fetch("/api/auth/check-auth");
+          const data = await response.json();
+
+          if (data.authenticated && data.user.role === "student") {
+            window.location.href = "student-dashboard.html";
+          }
+        } catch (error) {
+          console.log("Not authenticated");
+        }
+      });
+
+      // Form submission
+      document
+        .getElementById("studentLoginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const username = document.getElementById("studentUsername").value;
+          const password = document.getElementById("studentPassword").value;
+          const errorMessage = document.getElementById("errorMessage");
+
+          errorMessage.style.display = "none";
+
+          try {
+            const response = await fetch("/api/auth/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                username,
+                password,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              if (data.user.role === "student") {
+                sessionStorage.setItem("user", JSON.stringify(data.user));
+                window.location.href = "student-dashboard.html";
+              } else {
+                errorMessage.textContent =
+                  "Please use the admin login page for admin accounts";
+                errorMessage.style.display = "block";
+              }
+            } else {
+              errorMessage.textContent = data.error || "Login failed";
+              errorMessage.style.display = "block";
+            }
+          } catch (error) {
+            errorMessage.textContent = "Error: " + error.message;
+            errorMessage.style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard - Library Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .logout-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .welcome-section {
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .feature-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+      }
+
+      .feature-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .feature-description {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .feature-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .loading {
+        text-align: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="user-info">
+        <h1>Student Dashboard</h1>
+        <span id="userName">Loading...</span>
+      </div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <div class="dashboard-container">
+      <div class="welcome-section">
+        <h2>Welcome to Your Library Dashboard</h2>
+        <p>Manage your books and reading activities</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3 class="feature-title">Browse Books</h3>
+          <p class="feature-description">
+            Explore our collection of books and find your next read
+          </p>
+          <a href="books.html" class="feature-btn">Browse Books</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3 class="feature-title">My Borrowed Books</h3>
+          <p class="feature-description">
+            View and manage your currently borrowed books
+          </p>
+          <a href="my-books.html" class="feature-btn">View My Books</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 class="feature-title">Search Books</h3>
+          <p class="feature-description">
+            Find specific books by title, author, or category
+          </p>
+          <a href="search.html" class="feature-btn">Search Books</a>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">👤</div>
+          <h3 class="feature-title">My Profile</h3>
+          <p class="feature-description">
+            Update your profile information and preferences
+          </p>
+          <a href="profile.html" class="feature-btn">View Profile</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Check authentication
+      window.addEventListener("DOMContentLoaded", async function () {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+
+        if (!user || user.role !== "student") {
+          window.location.href = "student-login-enhanced.html";
+          return;
+        }
+
+        document.getElementById(
+          "userName"
+        ).textContent = `Welcome, ${user.fullname}`;
+      });
+
+      // Logout function
+      async function logout() {
+        try {
+          await fetch("/api/auth/logout", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          sessionStorage.removeItem("user");
+          window.location.href = "student-login-enhanced.html";
+        } catch (error) {
+          console.error("Logout error:", error);
+          sessionStorage.removeItem("user");
+          window.location.href = "student-login-enhanced.html";
+        }
+      }
+    </script>
+  </body>
+</html>

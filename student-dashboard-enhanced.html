@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard - LMS</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      /* Header Styles */
+      .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px 0;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+
+      .welcome-section {
+        text-align: center;
+        color: white;
+      }
+
+      .welcome-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .welcome-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: white;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b6b, #ffa500);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .nav-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .nav-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .logout-btn {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .logout-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+      }
+
+      /* Main Content */
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Features Section */
+      .features-section {
+        margin-top: 40px;
+      }
+
+      .section-title {
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .feature-description {
+        color: #666;
+        margin-bottom: 25px;
+        line-height: 1.6;
+      }
+
+      .feature-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .feature-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      /* Loading States */
+      .loading {
+        text-align: center;
+        color: white;
+        font-size: 1.2rem;
+        margin: 50px 0;
+      }
+
+      .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top: 4px solid white;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .welcome-title {
+          font-size: 2rem;
+        }
+
+        .nav-buttons {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Recent Activity */
+      .recent-activity {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 30px;
+        margin-top: 40px;
+        color: white;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+
+      .activity-icon {
+        margin-right: 15px;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header with Welcome Message and Navigation -->
+    <header class="header">
+      <div class="header-content">
+        <div class="welcome-section">
+          <h1 class="welcome-title">Welcome to LMS Website</h1>
+          <p class="welcome-subtitle" id="welcomeUser">
+            Loading user information...
+          </p>
+        </div>
+
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="nav-buttons">
+            <button class="nav-btn" onclick="goHome()">
+              <i class="fas fa-home"></i> Home
+            </button>
+            <button class="logout-btn" onclick="logout()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <div class="main-container">
+      <!-- Dashboard Statistics -->
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-number" id="borrowedCount">0</div>
+          <div class="stat-label">Books Borrowed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="availableCount">0</div>
+          <div class="stat-label">Books Available</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="overdueCount">0</div>
+          <div class="stat-label">Overdue Books</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="fineAmount">$0</div>
+          <div class="stat-label">Total Fines</div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="features-section">
+        <h2 class="section-title">Student Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-book"></i></div>
+            <h3 class="feature-title">Browse Books</h3>
+            <p class="feature-description">
+              Explore our extensive collection of books across various
+              categories and genres.
+            </p>
+            <button class="feature-btn" onclick="navigateTo('browse-books')">
+              <i class="fas fa-search"></i> Browse Books
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-list"></i></div>
+            <h3 class="feature-title">My Borrowed Books</h3>
+            <p class="feature-description">
+              View and manage all your currently borrowed books with due dates
+              and renewal options.
+            </p>
+            <button class="feature-btn" onclick="navigateTo('my-books')">
+              <i class="fas fa-eye"></i> View My Books
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-search"></i></div>
+            <h3 class="feature-title">Search Books</h3>
+            <p class="feature-description">
+              Find specific books by title, author, ISBN, or category with
+              advanced search filters.
+            </p>
+            <button class="feature-btn" onclick="navigateTo('search-books')">
+              <i class="fas fa-filter"></i> Search Books
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-star"></i></div>
+            <h3 class="feature-title">Recommendations</h3>
+            <p class="feature-description">
+              Get personalized book recommendations based on your reading
+              history and preferences.
+            </p>
+            <button class="feature-btn" onclick="navigateTo('recommendations')">
+              <i class="fas fa-magic"></i> Get Recommendations
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-history"></i></div>
+            <h3 class="feature-title">Borrowing History</h3>
+            <p class="feature-description">
+              View your complete borrowing history with return dates and fine
+              details.
+            </p>
+            <button class="feature-btn" onclick="navigateTo('history')">
+              <i class="fas fa-clock"></i> View History
+            </button>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fas fa-user-cog"></i></div>
+            <h3 class="feature-title">My Profile</h3>
+            <p class="feature-description">
+              Update your profile information, contact details, and reading
+              preferences.
+            </p>
+            <button class="feature-btn" onclick="navigateTo('profile')">
+              <i class="fas fa-edit"></i> Edit Profile
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="recent-activity">
+        <h3 style="margin-bottom: 20px; font-size: 1.5rem">Recent Activity</h3>
+        <div id="recentActivity">
+          <div class="loading">
+            <div class="spinner"></div>
+            Loading recent activity...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global variables
+      let currentUser = null;
+
+      // Initialize dashboard
+      window.addEventListener("DOMContentLoaded", async function () {
+        await initializeDashboard();
+      });
+
+      // Initialize dashboard with user data
+      async function initializeDashboard() {
+        try {
+          // Check authentication
+          const authResponse = await fetch("/api/auth/check-auth");
+          const authData = await authResponse.json();
+
+          if (!authData.authenticated || authData.user.role !== "student") {
+            window.location.href = "student-login-enhanced.html";
+            return;
+          }
+
+          currentUser = authData.user;
+
+          // Update welcome message
+          document.getElementById(
+            "welcomeUser"
+          ).textContent = `Welcome, ${currentUser.fullname}!`;
+          document.getElementById(
+            "userAvatar"
+          ).innerHTML = `<i class="fas fa-user"></i>`;
+
+          // Load dashboard data
+          await loadDashboardData();
+          await loadRecentActivity();
+        } catch (error) {
+          console.error("Error initializing dashboard:", error);
+          window.location.href = "student-login-enhanced.html";
+        }
+      }
+
+      // Load dashboard statistics
+      async function loadDashboardData() {
+        try {
+          const response = await fetch(
+            `/api/student/dashboard/${currentUser.id}`
+          );
+          const data = await response.json();
+
+          document.getElementById("borrowedCount").textContent =
+            data.borrowedCount || 0;
+          document.getElementById("availableCount").textContent =
+            data.availableCount || 0;
+          document.getElementById("overdueCount").textContent =
+            data.overdueCount || 0;
+          document.getElementById("fineAmount").textContent = `$${
+            data.totalFines || 0
+          }`;
+        } catch (error) {
+          console.error("Error loading dashboard data:", error);
+        }
+      }
+
+      // Load recent activity
+      async function loadRecentActivity() {
+        try {
+          const response = await fetch(
+            `/api/student/activity/${currentUser.id}`
+          );
+          const activities = await response.json();
+
+          const activityContainer = document.getElementById("recentActivity");
+
+          if (activities.length === 0) {
+            activityContainer.innerHTML = "<p>No recent activity found.</p>";
+            return;
+          }
+
+          activityContainer.innerHTML = activities
+            .map(
+              (activity) => `
+                    <div class="activity-item">
+                        <i class="fas ${getActivityIcon(
+                          activity.type
+                        )} activity-icon"></i>
+                        <div>
+                            <strong>${activity.title}</strong>
+                            <br>
+                            <small>${activity.description} • ${formatDate(
+                activity.date
+              )}</small>
+                        </div>
+                    </div>
+                `
+            )
+            .join("");
+        } catch (error) {
+          console.error("Error loading recent activity:", error);
+          document.getElementById("recentActivity").innerHTML =
+            "<p>Error loading activity.</p>";
+        }
+      }
+
+      // Navigation functions
+      function navigateTo(page) {
+        const routes = {
+          "browse-books": "browse-books.html",
+          "my-books": "my-books.html",
+          "search-books": "search-books.html",
+          recommendations: "recommendations.html",
+          history: "borrowing-history.html",
+          profile: "student-profile.html",
+        };
+
+        if (routes[page]) {
+          window.location.href = routes[page];
+        }
+      }
+
+      function goHome() {
+        window.location.href = "student-dashboard-enhanced.html";
+      }
+
+      // Utility functions
+      function getActivityIcon(type) {
+        const icons = {
+          borrow: "fa-book-open",
+          return: "fa-undo",
+          renew: "fa-redo",
+          fine: "fa-exclamation-triangle",
+          recommendation: "fa-star",
+        };
+        return icons[type] || "fa-info-circle";
+      }
+
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      // Logout function
+      async function logout() {
+        try {
+          await fetch("/api/auth/logout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          sessionStorage.removeItem("user");
+          window.location.href = "student-login-enhanced.html";
+        } catch (error) {
+          console.error("Logout error:", error);
+          sessionStorage.removeItem("user");
+          window.location.href = "student-login-enhanced.html";
+        }
+      }
+
+      // Auto-refresh dashboard data every 30 seconds
+      setInterval(() => {
+        if (currentUser) {
+          loadDashboardData();
+          loadRecentActivity();
+        }
+      }, 30000);
+    </script>
+  </body>
+</html>
