@@ -1,0 +1,9 @@
+[build]
+  command = "pip install -r requirements.txt && flask run"
+  publish = "public"
+
+[dev]
+  command = "flask run"
+  port = 5000
+  targetPort = 5000
+  framework = "flask"
